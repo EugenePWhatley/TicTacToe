@@ -8,20 +8,21 @@ import java.io.PrintStream;
  */
 public class TicTacToe {
     private PrintStream printStream;
+    private ACAwesomeBufferedReader bufferedReader;
 
-    public TicTacToe(PrintStream printStream) {
+    public TicTacToe(PrintStream printStream, ACAwesomeBufferedReader bufferedReader) {
         this.printStream = printStream;
+        this.bufferedReader = bufferedReader;
     }
 
 
     public static void main(String[] args) {
-        new TicTacToe(System.out).play();
+        new TicTacToe(System.out, new ACAwesomeBufferedReader(new InputStreamReader(System.in))).play();
     }
 
     public void play() {
-        Board board = new Board(System.out);
+        Board board = new Board(printStream);
         board.drawBoard();
-        ACAwesomeBufferedReader bufferedReader = new ACAwesomeBufferedReader(new InputStreamReader(System.in));
         Player p1 = new Player(bufferedReader);
         Player p2 = new Player(bufferedReader);
         boolean valid;

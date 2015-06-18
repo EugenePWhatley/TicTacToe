@@ -15,20 +15,25 @@ import static org.mockito.Mockito.when;
 public class TicTacToeTest {
 
     private PrintStream printStream;
+    private ACAwesomeBufferedReader bufferedReader;
     private TicTacToe ticTacToe;
     private Player p1;
     private Player p2;
     private Board board;
-    private ACAwesomeBufferedReader bufferedReader;
 
 
     @Before
     public void setUp(){
         printStream = mock(PrintStream.class);
         bufferedReader = mock(ACAwesomeBufferedReader.class);
-        ticTacToe = new TicTacToe(printStream);
         p1 = mock(Player.class);
+        p2 = mock(Player.class);
         board = mock(Board.class);
+        when(p1.chooseLocation()).thenReturn(1);
+        when(p2.chooseLocation()).thenReturn(2);
+        when(bufferedReader.readLine()).thenReturn("1");
+        when(board.addMove(1, "X")).thenReturn(true);
+        ticTacToe = new TicTacToe(printStream, bufferedReader);
     }
 
     @Test
@@ -46,6 +51,5 @@ public class TicTacToeTest {
 
         verify(printStream).println(prompt);
     }
-
 
 }

@@ -13,28 +13,26 @@ import static org.mockito.Mockito.verify;
  */
 public class BoardTest {
 
-    private String[] loc;
-    private String topLine;
-    private String middleLine;
-    private String bottomLine;
-    private String dividers;
+    private String[] locs;
+    private String boardLayout;
+    private final String unoccupied = "   ";
     private PrintStream printStream;
     private Board board;
 
     @Before
     public void setUp(){
         printStream = mock(PrintStream.class);
-        loc = new String[]{" ", " ", " ", " ", " ", " ", " ", " ", " "};
-        dividers = "---------";
+        locs = new String[]{unoccupied, unoccupied, unoccupied, unoccupied, unoccupied, unoccupied, unoccupied, unoccupied, unoccupied};
         board = new Board(printStream);
     }
 
     @Test
     public void shouldDrawEmptyBoardWhenGameBegins(){
-        topLine = loc[0] + "|" + loc[1] + "|" + loc[2];
-        middleLine = loc[3] + "|" + loc[4] + "|" + loc[5];
-        bottomLine = loc[6] + "|" + loc[7] + "|" + loc[8];
-        String boardLayout = String.format("%-5s\n%-5s\n%-5s\n%-5s\n%-5s", topLine, dividers, middleLine, dividers, bottomLine);
+        boardLayout = locs[0] + "|" + locs[1] + "|" + locs[2] + "\n";
+        boardLayout += "-----------" + "\n";
+        boardLayout += locs[3] + "|" + locs[4] + "|" + locs[5] + "\n";
+        boardLayout += "-----------" + "\n";
+        boardLayout += locs[6] + "|" + locs[7] + "|" + locs[8];
 
         board.drawBoard();
 
@@ -43,11 +41,12 @@ public class BoardTest {
 
     @Test
     public void shouldDrawXInPositionOneWhenAddingMove(){
-        loc[0] = " X ";
-        topLine = loc[0] + "|" + loc[1] + "|" + loc[2];
-        middleLine = loc[3] + "|" + loc[4] + "|" + loc[5];
-        bottomLine = loc[6] + "|" + loc[7] + "|" + loc[8];
-        String boardLayout = String.format("%-5s\n%-5s\n%-5s\n%-5s\n%-5s", topLine, dividers, middleLine, dividers, bottomLine);
+        locs[0] = " X ";
+        boardLayout = locs[0] + "|" + locs[1] + "|" + locs[2] + "\n";
+        boardLayout += "-----------" + "\n";
+        boardLayout += locs[3] + "|" + locs[4] + "|" + locs[5] + "\n";
+        boardLayout += "-----------" + "\n";
+        boardLayout += locs[6] + "|" + locs[7] + "|" + locs[8];
 
         board.addMove(1, " X ");
         board.drawBoard();
@@ -57,12 +56,13 @@ public class BoardTest {
 
     @Test
     public void shouldDrawNothingWhenInvalidInputIsGiven(){
-        topLine = loc[0] + "|" + loc[1] + "|" + loc[2];
-        middleLine = loc[3] + "|" + loc[4] + "|" + loc[5];
-        bottomLine = loc[6] + "|" + loc[7] + "|" + loc[8];
-        String boardLayout = String.format("%-5s\n%-5s\n%-5s\n%-5s\n%-5s", topLine, dividers, middleLine, dividers, bottomLine);
+        boardLayout = locs[0] + "|" + locs[1] + "|" + locs[2] + "\n";
+        boardLayout += "-----------" + "\n";
+        boardLayout += locs[3] + "|" + locs[4] + "|" + locs[5] + "\n";
+        boardLayout += "-----------" + "\n";
+        boardLayout += locs[6] + "|" + locs[7] + "|" + locs[8];
 
-        board.addMove(10, " X ");
+        board.addMove(-1, " X ");
         board.drawBoard();
 
         verify(printStream).println(boardLayout);
@@ -70,12 +70,13 @@ public class BoardTest {
 
     @Test
     public void shouldDrawXInPositionOneAndOInPositionTwo(){
-        loc[0] = " X ";
-        loc[1] = " O ";
-        topLine = loc[0] + "|" + loc[1] + "|" + loc[2];
-        middleLine = loc[3] + "|" + loc[4] + "|" + loc[5];
-        bottomLine = loc[6] + "|" + loc[7] + "|" + loc[8];
-        String boardLayout = String.format("%-5s\n%-5s\n%-5s\n%-5s\n%-5s", topLine, dividers, middleLine, dividers, bottomLine);
+        locs[0] = " X ";
+        locs[1] = " O ";
+        boardLayout = locs[0] + "|" + locs[1] + "|" + locs[2] + "\n";
+        boardLayout += "-----------" + "\n";
+        boardLayout += locs[3] + "|" + locs[4] + "|" + locs[5] + "\n";
+        boardLayout += "-----------" + "\n";
+        boardLayout += locs[6] + "|" + locs[7] + "|" + locs[8];
 
         board.addMove(1, " X ");
         board.addMove(2, " O ");
@@ -101,5 +102,9 @@ public class BoardTest {
         board.addMove(1, " O ");
 
         verify(printStream).println(errorMessage);
+    }
+
+    @Test
+    public void shouldDisplayDrawWhenAllPositionsAreOccupied(){
     }
 }

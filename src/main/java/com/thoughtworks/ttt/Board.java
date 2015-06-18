@@ -9,27 +9,28 @@ public class Board {
 
 
     private PrintStream printStream;
-    private final String[] loc;
+    private String[] locs;
+    private final String unoccupied = "   ";
 
     public Board(PrintStream printStream) {
 
         this.printStream = printStream;
-        loc = new String[]{" ", " ", " ", " ", " ", " ", " ", " ", " "};
+        locs = new String[]{unoccupied, unoccupied, unoccupied, unoccupied, unoccupied, unoccupied, unoccupied, unoccupied, unoccupied};
     }
 
     public void drawBoard() {
-        String topLine = loc[0] + "|" + loc[1] + "|" + loc[2];
-        String middleLine = loc[3] + "|" + loc[4] + "|" + loc[5];
-        String bottomLine = loc[6] + "|" + loc[7] + "|" + loc[8];
-        String dividers = "---------";
-        String board = String.format("%-5s\n%-5s\n%-5s\n%-5s\n%-5s",topLine,dividers,middleLine,dividers,bottomLine);
-        printStream.println(board);
+        String boardLayout = locs[0] + "|" + locs[1] + "|" + locs[2] + "\n";
+        boardLayout += "-----------" + "\n";
+        boardLayout += locs[3] + "|" + locs[4] + "|" + locs[5] + "\n";
+        boardLayout += "-----------" + "\n";
+        boardLayout += locs[6] + "|" + locs[7] + "|" + locs[8];
+        printStream.println(boardLayout);
     }
 
     public boolean addMove(int location, String mark) {
         if(location > 0) {
-            if (loc[location - 1].equals(" ")) {
-                loc[location - 1] = mark;
+            if (locs[location - 1].equals(unoccupied)) {
+                locs[location - 1] = mark;
                 return true;
             } else {
                 String errorMessage = "Location Already Occupied";
