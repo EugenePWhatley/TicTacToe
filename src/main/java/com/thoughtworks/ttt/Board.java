@@ -27,14 +27,16 @@ public class Board {
     }
 
     public boolean addMove(int location, String mark) {
-        if(location >= 1 && location <= 9) {
-            if(loc[location-1].equals(" ")) {
+        if(location > 0) {
+            if (loc[location - 1].equals(" ")) {
                 loc[location - 1] = mark;
                 return true;
             } else {
                 return false;
             }
         }
-        return true;
+        String errorMessage = "Invalid Location, please pick somewhere between 1 and 9";
+        printStream.println(errorMessage);
+        return false;
     }
 }

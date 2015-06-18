@@ -17,6 +17,10 @@ public class Player {
     public int chooseLocation() {
         String move = bufferedReader.readLine();
         int moveAsInteger = Integer.parseInt(move);
-        return moveAsInteger;
+        if(moveAsInteger <= 9 && moveAsInteger >= 1) {
+            return moveAsInteger;
+        } else {
+            return -1;
+        }
     }
 }

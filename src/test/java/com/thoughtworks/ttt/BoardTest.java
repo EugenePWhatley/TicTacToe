@@ -85,10 +85,11 @@ public class BoardTest {
     }
 
     @Test
-    public void shouldGiveErrorMessageWhenTryingToPlaceInOccupiedSpot(){
-        board.addMove(1, " X ");
-        board.addMove(1, " O ");
+    public void shouldGiveErrorMessageWhenTryingToPlaceInInvalidLocation(){
+        String errorMessage = "Invalid Location, please pick somewhere between 1 and 9";
 
-        verify(printStream).println("Location Already Taken");
+        board.addMove(-1, " X ");
+
+        verify(printStream).println(errorMessage);
     }
 }

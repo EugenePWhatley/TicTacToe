@@ -31,12 +31,11 @@ public class PlayerTest {
         assertEquals(p1.chooseLocation(), 1);
     }
 
-    @Test
-    public void shouldNotTellBoardAnythingWhenNumberGreaterThanNineIsChose() {
 
+    @Test
+    public void shouldTellBoardNegativeNumberWhenInvalidInputIsGiven(){
         when(bufferedReader.readLine()).thenReturn("10");
 
-        assertEquals(p1.chooseLocation(), 0);
+        assertEquals(p1.chooseLocation(), -1);
     }
-
 }

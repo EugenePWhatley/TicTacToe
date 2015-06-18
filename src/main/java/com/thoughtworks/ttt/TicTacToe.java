@@ -21,10 +21,10 @@ public class TicTacToe {
     public void play() {
         Board board = new Board(System.out);
         board.drawBoard();
-        promptUser();
         ACAwesomeBufferedReader bufferedReader = new ACAwesomeBufferedReader(new InputStreamReader(System.in));
         Player p1 = new Player(bufferedReader);
         Player p2 = new Player(bufferedReader);
+        promptUser();
         board.addMove(p1.chooseLocation(), " X ");
         board.drawBoard();
         board.addMove(p2.chooseLocation(), " O ");

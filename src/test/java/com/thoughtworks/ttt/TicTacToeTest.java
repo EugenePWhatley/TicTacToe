@@ -17,6 +17,7 @@ public class TicTacToeTest {
     private PrintStream printStream;
     private TicTacToe ticTacToe;
     private Player p1;
+    private Player p2;
     private Board board;
     private ACAwesomeBufferedReader bufferedReader;
 
@@ -48,7 +49,8 @@ public class TicTacToeTest {
 
     @Test
     public void shouldGiveErrorMessageWhenInvalidInput(){
-        when(bufferedReader.readLine()).thenReturn("1");
+        when(p1.chooseLocation()).thenReturn(1);
+        when(p2.chooseLocation()).thenReturn(1);
         when(board.addMove(1," ")).thenReturn(false);
 
         ticTacToe.play();
