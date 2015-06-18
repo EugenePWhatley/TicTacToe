@@ -42,4 +42,14 @@ public class Board {
         printStream.println(errorMessage);
         return false;
     }
+
+    public boolean isBoardFull(){
+        boolean full = true;
+        for (String loc : locs) {
+            if (loc.equals(unoccupied)) {
+                full = false;
+            }
+        }
+        return full;
+    }
 }

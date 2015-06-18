@@ -8,6 +8,7 @@ import java.io.PrintStream;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 /**
  * Created by eugenew on 6/18/15.
@@ -33,14 +34,14 @@ public class TicTacToeTest {
         when(p2.chooseLocation()).thenReturn(2);
         when(bufferedReader.readLine()).thenReturn("1");
         when(board.addMove(1, "X")).thenReturn(true);
-        ticTacToe = new TicTacToe(printStream, bufferedReader);
+        ticTacToe = new TicTacToe(printStream, bufferedReader, board);
     }
 
     @Test
     public void shouldDrawBoardWhenGameStarts(){
         ticTacToe.play();
 
-        verify(board).drawBoard();
+        verify(board, times(3)).drawBoard();
     }
 
     @Test
@@ -49,7 +50,12 @@ public class TicTacToeTest {
 
         ticTacToe.play();
 
-        verify(printStream).println(prompt);
+        verify(printStream, times(2)).println(prompt);
     }
 
+    @Test
+    public void shouldDiplayDrawWhenBoardIsFull(){
+        ticTacToe.play();
+
+    }
 }

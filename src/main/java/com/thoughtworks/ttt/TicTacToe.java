@@ -9,33 +9,36 @@ import java.io.PrintStream;
 public class TicTacToe {
     private PrintStream printStream;
     private ACAwesomeBufferedReader bufferedReader;
+    private Board board;
 
-    public TicTacToe(PrintStream printStream, ACAwesomeBufferedReader bufferedReader) {
+    public TicTacToe(PrintStream printStream, ACAwesomeBufferedReader bufferedReader, Board board) {
         this.printStream = printStream;
         this.bufferedReader = bufferedReader;
+        this.board = board;
     }
 
 
     public static void main(String[] args) {
-        new TicTacToe(System.out, new ACAwesomeBufferedReader(new InputStreamReader(System.in))).play();
+        new TicTacToe(System.out, new ACAwesomeBufferedReader(new InputStreamReader(System.in)), new Board(System.out)).play();
     }
 
     public void play() {
-        Board board = new Board(printStream);
         board.drawBoard();
         Player p1 = new Player(bufferedReader);
         Player p2 = new Player(bufferedReader);
-        boolean valid;
-        do {
-            promptUser();
-            valid = board.addMove(p1.chooseLocation(), " X ");
-        } while(!valid);
-        board.drawBoard();
-        do {
-            promptUser();
-            valid = board.addMove(p2.chooseLocation(), " O ");
-        } while(!valid);
-        board.drawBoard();
+        while(board.isBoardFull()) {
+            boolean valid;
+            do {
+                promptUser();
+                valid = board.addMove(p1.chooseLocation(), " X ");
+            } while (!valid);
+            board.drawBoard();
+            do {
+                promptUser();
+                valid = board.addMove(p2.chooseLocation(), " O ");
+            } while (!valid);
+            board.drawBoard();
+        }
     }
 
     private void promptUser() {

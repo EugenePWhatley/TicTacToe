@@ -106,5 +106,10 @@ public class BoardTest {
 
     @Test
     public void shouldDisplayDrawWhenAllPositionsAreOccupied(){
+        for(int i = 0; i < locs.length; i++){
+            locs[i] = " X ";
+        }
+
+        assert(board.isBoardFull());
     }
 }
