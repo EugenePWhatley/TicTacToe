@@ -109,7 +109,6 @@ public class BoardTest {
         for(int i = 0; i < locs.length; i++){
             locs[i] = " X ";
         }
-
         assert(board.isBoardFull());
     }
 }
