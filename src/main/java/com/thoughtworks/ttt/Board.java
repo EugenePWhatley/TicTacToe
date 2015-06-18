@@ -32,6 +32,8 @@ public class Board {
                 loc[location - 1] = mark;
                 return true;
             } else {
+                String errorMessage = "Location Already Occupied";
+                printStream.println(errorMessage);
                 return false;
             }
         }

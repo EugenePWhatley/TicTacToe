@@ -47,14 +47,5 @@ public class TicTacToeTest {
         verify(printStream).println(prompt);
     }
 
-    @Test
-    public void shouldGiveErrorMessageWhenInvalidInput(){
-        when(p1.chooseLocation()).thenReturn(1);
-        when(p2.chooseLocation()).thenReturn(1);
-        when(board.addMove(1," ")).thenReturn(false);
 
-        ticTacToe.play();
-
-        verify(printStream).println("Location already taken");
-    }
 }

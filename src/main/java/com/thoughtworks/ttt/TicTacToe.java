@@ -24,10 +24,16 @@ public class TicTacToe {
         ACAwesomeBufferedReader bufferedReader = new ACAwesomeBufferedReader(new InputStreamReader(System.in));
         Player p1 = new Player(bufferedReader);
         Player p2 = new Player(bufferedReader);
-        promptUser();
-        board.addMove(p1.chooseLocation(), " X ");
+        boolean valid;
+        do {
+            promptUser();
+            valid = board.addMove(p1.chooseLocation(), " X ");
+        } while(!valid);
         board.drawBoard();
-        board.addMove(p2.chooseLocation(), " O ");
+        do {
+            promptUser();
+            valid = board.addMove(p2.chooseLocation(), " O ");
+        } while(!valid);
         board.drawBoard();
     }
 

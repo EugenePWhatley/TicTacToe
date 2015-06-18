@@ -92,4 +92,14 @@ public class BoardTest {
 
         verify(printStream).println(errorMessage);
     }
+
+    @Test
+    public void shouldGiveErrorMessageWhenTryingToPlaceInPositionAlreadyOccupied(){
+        String errorMessage = "Location Already Occupied";
+
+        board.addMove(1, " X ");
+        board.addMove(1, " O ");
+
+        verify(printStream).println(errorMessage);
+    }
 }
