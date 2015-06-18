@@ -3,11 +3,10 @@ package com.thoughtworks.ttt;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.BufferedReader;
-import java.io.IOException;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
@@ -29,7 +28,7 @@ public class PlayerTest {
 
         when(bufferedReader.readLine()).thenReturn("1");
 
-        assertEquals(p1.makesMove(), 1);
+        assertEquals(p1.chooseLocation(), 1);
     }
 
     @Test
@@ -37,6 +36,7 @@ public class PlayerTest {
 
         when(bufferedReader.readLine()).thenReturn("10");
 
-
+        assertEquals(p1.chooseLocation(), 0);
     }
+
 }

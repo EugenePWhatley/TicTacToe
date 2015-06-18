@@ -14,9 +14,9 @@ public class Player {
         this.bufferedReader = bufferedReader;
     }
 
-    public int makesMove() {
+    public int chooseLocation() {
         String move = bufferedReader.readLine();
-
-        return 1;
+        int moveAsInteger = Integer.parseInt(move);
+        return moveAsInteger;
     }
 }

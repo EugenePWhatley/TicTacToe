@@ -1,5 +1,6 @@
 package com.thoughtworks.ttt;
 
+import java.io.InputStreamReader;
 import java.io.PrintStream;
 
 /**
@@ -14,12 +15,20 @@ public class TicTacToe {
 
 
     public static void main(String[] args) {
-        new TicTacToe(System.out).start();
+        new TicTacToe(System.out).play();
     }
 
-    public void start() {
-        drawBoard();
+    public void play() {
+        Board board = new Board(System.out);
+        board.drawBoard();
         promptUser();
+        ACAwesomeBufferedReader bufferedReader = new ACAwesomeBufferedReader(new InputStreamReader(System.in));
+        Player p1 = new Player(bufferedReader);
+        Player p2 = new Player(bufferedReader);
+        board.addMove(p1.chooseLocation(), " X ");
+        board.drawBoard();
+        board.addMove(p2.chooseLocation(), " O ");
+        board.drawBoard();
     }
 
     private void promptUser() {
@@ -27,13 +36,5 @@ public class TicTacToe {
         printStream.println(prompt);
     }
 
-    public void drawBoard() {
-        String board = "  |   |\n" +
-                "---------\n" +
-                "  |   |\n" +
-                "---------\n" +
-                "  |   |";
-        printStream.println(board);
-    }
 
 }

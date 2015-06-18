@@ -3,7 +3,6 @@ package com.thoughtworks.ttt;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.BufferedReader;
 import java.io.PrintStream;
 
 import static org.mockito.Mockito.mock;
@@ -18,60 +17,42 @@ public class TicTacToeTest {
     private PrintStream printStream;
     private TicTacToe ticTacToe;
     private Player p1;
+    private Board board;
+    private ACAwesomeBufferedReader bufferedReader;
+
 
     @Before
     public void setUp(){
         printStream = mock(PrintStream.class);
+        bufferedReader = mock(ACAwesomeBufferedReader.class);
         ticTacToe = new TicTacToe(printStream);
         p1 = mock(Player.class);
-
+        board = mock(Board.class);
     }
 
     @Test
     public void shouldDrawBoardWhenGameStarts(){
-        String board = "  |   |\n" +
-                "---------\n" +
-                "  |   |\n" +
-                "---------\n" +
-                "  |   |";
+        ticTacToe.play();
 
-        ticTacToe.start();
-
-        verify(printStream).println(board);
+        verify(board).drawBoard();
     }
 
     @Test
     public void shouldPromptPlayerOneToMakeMoveWhenGameStarts(){
         String prompt = "Enter a number between 1 and 9 to indicate where you wish to move: ";
 
-        ticTacToe.start();
+        ticTacToe.play();
 
         verify(printStream).println(prompt);
     }
 
     @Test
-    public void shouldRedrawBoardPlacingXInFirstPosition(){
-        String board = "X|   |\n" +
-                "---------\n" +
-                "  |   |\n" +
-                "---------\n" +
-                "  |   |";
+    public void shouldGiveErrorMessageWhenInvalidInput(){
+        when(bufferedReader.readLine()).thenReturn("1");
+        when(board.addMove(1," ")).thenReturn(false);
 
-        when(p1.makesMove()).thenReturn(1);
+        ticTacToe.play();
 
-        verify(printStream).println(board);
-    }
-
-    @Test
-    public void shouldNotRedrawBoardWhenPlayerSelectsNumberGreaterThanNine(){
-        String board = "  |   |\n" +
-                "---------\n" +
-                "  |   |\n" +
-                "---------\n" +
-                "  |   |";
-
-        when(p1.makesMove()).thenReturn(10);
-
-        verify(printStream).println(board);
+        verify(printStream).println("Location already taken");
     }
 }
